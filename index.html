@@ -4,7 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Even Number Generator</title>
-  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    /* CSS styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #9face6);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 2rem 3rem;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #4a4a4a;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    input[type="number"] {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.7rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+
+    #result {
+      margin-top: 2rem;
+    }
+
+    #result h2 {
+      margin-bottom: 1rem;
+      color: #4a4a4a;
+    }
+
+    #evenList {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    #evenList li {
+      background-color: #f0f8ff;
+      padding: 0.5rem;
+      margin-bottom: 0.3rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem 2rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -25,6 +122,46 @@
     </div>
   </div>
 
-  <script src="./js/script.js"></script>
+  <script>
+    // JavaScript logic
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("rangeForm");
+      const evenList = document.getElementById("evenList");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        evenList.innerHTML = "";
+
+        const start = parseInt(document.getElementById("start").value);
+        const end = parseInt(document.getElementById("end").value);
+
+        if (isNaN(start) || isNaN(end)) {
+          alert("Please enter valid numbers.");
+          return;
+        }
+
+        if (start > end) {
+          alert("Start number must be less than or equal to end number.");
+          return;
+        }
+
+        let hasEven = false;
+        for (let i = start; i <= end; i++) {
+          if (i % 2 === 0) {
+            const li = document.createElement("li");
+            li.textContent = i;
+            evenList.appendChild(li);
+            hasEven = true;
+          }
+        }
+
+        if (!hasEven) {
+          const li = document.createElement("li");
+          li.textContent = "No even numbers found in this range.";
+          evenList.appendChild(li);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
